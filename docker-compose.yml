@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  jdk:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      target: dev
+    working_dir: /usr/local
+    tty: true
+    volumes:
+      - ./src:/usr/local/src
+      - ./build.sh:/usr/local/build.sh
