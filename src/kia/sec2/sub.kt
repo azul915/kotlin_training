@@ -1,5 +1,7 @@
 package kia.sec2
 
+import java.io.BufferedReader
+import java.lang.NumberFormatException
 import java.util.*
 
 fun fizzBuzz(i : Int) = when {
@@ -23,6 +25,21 @@ fun arrayListOutputWithIndex() {
     for ((i, e) in list.withIndex()) {
         println("$i: $e")
     }
+}
+
+fun recognize(c: Char) = when (c) {
+    in '0'..'9' -> "It's a digit!"
+    in 'a'..'z', in 'A'..'Z' -> "It's a letter!"
+    else -> "I don't know..."
+}
+
+fun readNumber(read: BufferedReader): Unit {
+    val number = try {
+        Integer.parseInt(read.readLine())
+    } catch (e: NumberFormatException) {
+        null
+    }
+    println(number)
 }
 
 fun treeMap2() = run {

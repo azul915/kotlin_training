@@ -1,5 +1,8 @@
 package kia.sec2
 
+import java.io.BufferedReader
+import java.io.StringReader
+
 fun sec2Output(): Any {
 //    return blue()
 //    return expr()
@@ -7,7 +10,9 @@ fun sec2Output(): Any {
 //    return expr3()
 //    return fizzBuzzOutput()
 //    return treeMapOutput()
-    return arrayListOutputWithIndex()
+//    return arrayListOutputWithIndex()
+//    return recognizeInvocator()
+    return readerInvocator()
 }
 
 fun blue(): String = "rgb: ${Color.BLUE.rgb()}"
@@ -35,4 +40,17 @@ fun treeMapOutput() {
     for ((letter, binary) in binReps) {
         println("$letter = $binary")
     }
+}
+
+fun recognizeInvocator(): String {
+   return """
+       8 : ${recognize('8')}
+       a : ${recognize('a')}
+       ? : ${recognize('?')}
+   """.trimIndent()
+}
+
+fun readerInvocator(): Unit {
+    val reader = BufferedReader(StringReader("not a number"))
+    readNumber(reader)
 }
