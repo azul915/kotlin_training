@@ -1,4 +1,4 @@
-package kia.sec1
+package kia.sec1.person
 
 class Person (
         val name: String,

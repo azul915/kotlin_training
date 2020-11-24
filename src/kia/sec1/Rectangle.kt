@@ -1,4 +1,4 @@
-package kia.sec1
+package kia.sec1.rectangle
 
 class Rectangle (
         private val height: Int,

@@ -2,7 +2,7 @@ FROM openjdk:16-slim AS dev
 
 ENV PATH /usr/local/kotlinc/bin:$PATH
 ENV SRC /usr/local/src
-ENV VERSION 1.4.10
+ENV VERSION 1.4.20
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
