@@ -29,3 +29,5 @@ fun <T> joinToStringHasDefaultArgs(
     result.append(postfix)
     return result.toString()
 }
+
+fun String.lastChar(): Char = this[this.length - 1]

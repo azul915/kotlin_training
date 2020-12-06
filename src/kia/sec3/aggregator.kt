@@ -3,7 +3,9 @@ package kia.sec3
 fun sec3Output(): Any {
 //    return invocatorJoinToString()
 //    return invocatorJoinToStringWithDefaultParam()
-    return invocatorJoinToStringHasDefaultArgs()
+//    return invocatorJoinToStringHasDefaultArgs()
+//    return invocatorLastChar()
+    return testExpansionProperty()
 }
 
 fun invocatorJoinToString(): String {
@@ -23,4 +25,15 @@ fun invocatorJoinToStringHasDefaultArgs(): String {
         ${joinToStringHasDefaultArgs(list)}
         ${joinToStringHasDefaultArgs(list, "; ")}
     """.trimIndent()
+}
+
+fun invocatorLastChar(): Char {
+    return "Kotin".lastChar()
+
+}
+
+fun testExpansionProperty(): String {
+    val sb = StringBuilder("Kotlin?")
+    sb.lastChar = '!'
+    return sb.toString()
 }
