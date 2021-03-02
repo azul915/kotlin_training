@@ -30,4 +30,10 @@ fun <T> joinToStringHasDefaultArgs(
     return result.toString()
 }
 
+fun Collection<String>.join(
+        separator: String = ", ",
+        prefix: String = "",
+        postfix: String = ""
+) = joinToString(separator, prefix, postfix)
+
 fun String.lastChar(): Char = this[this.length - 1]
