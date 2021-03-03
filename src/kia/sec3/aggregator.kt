@@ -91,9 +91,9 @@ fun listLastElement(): String {
     return strings.last()
 }
 
-fun setMaxElement(): Int {
+fun setMaxElement(): Int? {
     val numbers = setOf(1,14,2)
-    return numbers.max()!!
+    return numbers.maxOrNull()
 }
 
 fun foo(): Unit {
