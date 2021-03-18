@@ -3,7 +3,8 @@ package kia.sec4
 class DelegatingCollection<T>: Collection<T> {
     private val innerList = arrayListOf<T>()
 
-    override val size: Int get() = innerList.size
+    override val size: Int
+    get() = innerList.size
     override fun isEmpty() = innerList.isEmpty()
     override fun contains(element: T): Boolean = innerList.contains(element)
     override fun iterator(): Iterator<T> = innerList.iterator()

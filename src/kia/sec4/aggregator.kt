@@ -1,6 +1,7 @@
 package kia.sec4
 
-import kia.sec4.piyo.Client
+import kia.sec4.piyo.*
+import java.io.File
 
 fun sec4Output(): Any {
 //    return Button().click()
@@ -9,7 +10,14 @@ fun sec4Output(): Any {
 //    return invokeClient()
 //    return bobCopy()
 //    return useRectangle()
-    return useRectange_2()
+//    return useRectange_2()
+//    return countSet()
+//    return declareComplatorByObject()
+//    return filesComparator()
+//    return nestedComparator()
+//    return callCompanionObject()
+//    return callSecondaryConstructor()
+    return callNamedCompanionObject()
 }
 
 //fun invokeButton() {
@@ -30,6 +38,13 @@ fun bobCopy(): String {
     return newBob.toString()
 }
 
+fun countSet(): Unit {
+    val cset = CountingSet<Int>()
+    println("${cset.objectsAdded} objects were added, ${cset.size} remain")
+    cset.addAll(listOf(1, 1, 2))
+    println("${cset.objectsAdded} objects were added, ${cset.size} remain")
+}
+
 fun useRectangle(): Unit {
     val rect = Rectangle("rectangle", 10, 10)
     val window = Window(rect)
@@ -42,4 +57,40 @@ fun useRectange_2(): Unit {
     val window = Window_2(rect)
     println(window.name)
     println(window.area())
+}
+
+fun useObject(): Unit {
+    Payroll.allEmployees.add(PersonSample("foo"))
+    Payroll.calculateSalary()
+}
+
+fun declareComplatorByObject(): Unit {
+    println(CaseInsensitiveFilecomparator.compare(File("/User"), File("/user")))
+}
+
+fun filesComparator(): Unit {
+    val files = listOf(File("/Z"), File("/a"))
+    println(files.sortedWith(CaseInsensitiveFilecomparator))
+}
+
+fun nestedComparator(): Unit {
+    val persons = listOf(Person("Bob"), Person("Alice"))
+    println(persons.sortedWith(Person.NameComparator))
+}
+
+fun callCompanionObject(): Unit {
+    println(CompanionSampleA.bar())
+}
+
+fun callSecondaryConstructor(): Unit {
+    val subscribingUser = FooUser.newSubscribingUser("bob@gmail.com")
+    val facebookUser = FooUser.newFacebookUser(4)
+    println(subscribingUser.nickname)
+}
+
+fun callNamedCompanionObject(): Unit {
+    val person = FooPerson.Loader.fromJSON("{name: 'Dmitry'}")
+    println(person.name)
+    val person2 = FooPerson.fromJSON("{name: 'Brent'}")
+    println(person2.name)
 }
