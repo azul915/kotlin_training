@@ -94,3 +94,7 @@ fun callNamedCompanionObject(): Unit {
     val person2 = FooPerson.fromJSON("{name: 'Brent'}")
     println(person2.name)
 }
+
+fun callCompanionExtensionFunction(): Unit {
+    val p = HogePerson.fromJSON("json")
+}

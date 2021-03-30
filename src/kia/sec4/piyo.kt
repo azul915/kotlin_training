@@ -106,3 +106,9 @@ class BarPerson(val name: String) {
         }
     }
 }
+
+class HogePerson(val firstName: String, val lastName: String) {
+    companion object {}
+}
+
+fun HogePerson.Companion.fromJSON(json: String): HogePerson = HogePerson("firstName", "lastName")
