@@ -1,12 +1,16 @@
 package kia.sec5
 
+import java.io.File
+
 fun sec5Output(): Any {
 //    return transformNames()
 //    return bar()
 //    return piyo()
 //    return sandbox()
 //    return fuga()
-    return invocationLambdaSandbox()
+//    return invocationLambdaSandbox()
+//    return file()
+    return invokeAlphabet()
 }
 
 fun foo(): Person? {
@@ -52,4 +56,16 @@ fun fuga() {
 
 fun invocationLambdaSandbox() {
     lambdaSandbox()
+}
+
+fun file() {
+    val file = File("/Users/svtk/.HiddenDir/a.txt")
+    file.isInsideHiddenDirectory().also { println(it) }
+}
+
+fun invokeAlphabet() {
+    alphabet().also { println(it) }
+    alphabet2().also { println(it) }
+    alphabet3().also { println(it) }
+    alphabet4().also { println(it) }
 }

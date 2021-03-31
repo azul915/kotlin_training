@@ -1,5 +1,8 @@
 package kia.sec5
 
+import java.io.File
+import javax.naming.Context
+
 data class Person(val name: String, val age: Int)
 
 fun printMessageWithPrefix(messages: Collection<String>, prefix: String) {
@@ -93,4 +96,55 @@ fun lambdaSandbox() {
     listOf(1, 2, 3, 4).asSequence().map { print("map($it) "); it * it }.filter { print("filter($it) "); it % 2 == 0 }.toList()
 
     listOf(1, 2, 3, 4).asSequence().map { it * it }.find { it > 3 }.run { println(this) }
+
+    val peo = listOf(Person("Alice", 29), Person("Bob", 31), Person("Charles", 31), Person("Dan", 21))
+    peo.asSequence().map(Person::name).filter { it.length < 4 }.toList().also { println(it) }
+
+    peo.asSequence().filter { it.name.length < 4 }.map(Person::name).toList().also { println(it) }
+
+    val naturalNumbers = generateSequence(0) { it + 1 }
+    val numbersTo100 = naturalNumbers.takeWhile { it <= 100 }
+    numbersTo100.sum().also { println(it) }
+}
+
+fun File.isInsideHiddenDirectory() = generateSequence(this) { it.parentFile }.any { it.isHidden }
+
+fun alphabet(): String {
+    val result = StringBuilder()
+    for (letter in 'A'..'Z') {
+        result.append(letter)
+    }
+    result.append("\nNow I know the alphabet!")
+//    return result.toString()
+
+    val res = StringBuilder()
+    return with(res) {
+        for (letter in 'A'..'Z') {
+            this.append(letter)
+        }
+        append("\nNow I know the alphabet!")
+        this.toString()
+    }
+}
+
+fun alphabet2() = with(StringBuilder()) {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\nNow I know the alphabet!")
+    toString()
+}
+
+fun alphabet3() = StringBuilder().apply {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\nNow I know the alphabet!")
+}.toString()
+
+fun alphabet4() = buildString {
+    for (letter in 'A'..'Z') {
+        append(letter)
+    }
+    append("\nNow I know the alphabet!")
 }
