@@ -6,6 +6,7 @@ import kia.sec4.sec4Output
 import kia.sec5.sec5Output
 import kia.sec6.sec6Output
 
+// command⌘ + shift + return
 fun main() {
 //    println(bobsStatus())
 //    println(checkIsSqure(41, 43))
