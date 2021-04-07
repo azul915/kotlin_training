@@ -1,5 +1,8 @@
 package kia.sec6
 
+import java.io.BufferedReader
+import java.io.StringReader
+
 fun sec6Output(): Any {
 //    return invokeStrLenSafe()
 //    return invokePrintAllCaps()
@@ -15,7 +18,12 @@ fun sec6Output(): Any {
 //    return invokePrintHashCode()
 //    return invokeFoo()
 //    return invokePiyo()
-    return abc()
+//    return abc()
+//    return invokeAddValidNumbers()
+//    return invokeAddValidNumbersSample()
+//    return invokeCopyElements()
+//    return invokeGreet()
+    return invokeGreetMutableList()
 }
 
 fun invokeStrLenSafe() {
@@ -104,4 +112,37 @@ fun invokeABC() {
 
 fun invokeFail() {
     fail("Error occured")
+}
+
+fun invokeAddValidNumbers() {
+    val reader = BufferedReader(StringReader("1\nabc\n42"))
+    val numbers = readNumbers(reader)
+    println(numbers)
+    addValidNumbers(numbers)
+}
+
+fun invokeAddValidNumbersSample() {
+    val reader = BufferedReader(StringReader("1\nabc\n42"))
+    val numbers = readNumbers(reader)
+    println(numbers)
+    addValidNumbersSample(numbers)
+}
+
+fun invokeCopyElements() {
+    val source: Collection<Int> = arrayListOf(3, 5, 7)
+    val target: MutableCollection<Int> = arrayListOf(1)
+    copyElements(source, target)
+    println(target)
+}
+
+fun invokeGreetArray() {
+    val array: Array<String> = arrayOf("おはようございます", "こんにちは", "こんばんは")
+    greetArray(array)
+    println(array[0])
+}
+
+fun invokeGreetMutableList() {
+    val list = mutableListOf<String>("foo", "bar")
+    greetMutableList(list)
+    println(list)
 }
