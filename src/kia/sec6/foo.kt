@@ -1,6 +1,7 @@
 package kia.sec6
 
 import java.io.BufferedReader
+import java.io.File
 
 fun strLenSafe(s: String?): Int = if (s != null) s.length else 0
 
@@ -178,3 +179,35 @@ fun greetMutableList(list: MutableList<String>) {
     list.add("abc")
     println(list)
 }
+
+fun greetArrayList(list: ArrayList<String>) {
+    list.add("def")
+    println(list)
+}
+
+interface FileContentProcessor {
+    fun processContents(path: File, binaryContents: ByteArray?, textContents: List<String>?)
+}
+
+class FileIndexer: FileContentProcessor {
+    override fun processContents(path: File, binaryContents: ByteArray?, textContents: List<String>?) {
+        TODO("Not yet implemented")
+    }
+}
+
+interface DataParser<T> {
+    fun parseData(input: String, output: List<T>, errors: List<String?>)
+}
+
+class PersonPerser: DataParser<Person> {
+    override fun parseData(input: String, output: List<Person>, errors: List<String?>) {
+        TODO("Not yet implemented")
+    }
+}
+
+fun handleArray(arr: Array<String>) {
+    for (i in arr.indices) {
+        println("Argument $i is: ${arr[i]}")
+    }
+}
+

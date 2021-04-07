@@ -5,6 +5,7 @@ import kia.sec3.sec3Output
 import kia.sec4.sec4Output
 import kia.sec5.sec5Output
 import kia.sec6.sec6Output
+import kia.sec7.sec7Output
 
 // command⌘ + shift + return
 fun main() {
@@ -14,5 +15,6 @@ fun main() {
 //    println(sec3Output())
 //    println(sec4Output())
 //    println(sec5Output())
-    println(sec6Output())
+//    println(sec6Output())
+    println(sec7Output())
 }

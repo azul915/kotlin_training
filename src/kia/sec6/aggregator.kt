@@ -22,8 +22,13 @@ fun sec6Output(): Any {
 //    return invokeAddValidNumbers()
 //    return invokeAddValidNumbersSample()
 //    return invokeCopyElements()
-//    return invokeGreet()
-    return invokeGreetMutableList()
+//    return invokeGreetArray()
+//    return invokeGreetMutableList()
+//    return invokeHandleArray()
+//    return invokeArrayInit()
+//    return invokeHandleArrayOfNulls()
+//    return invokeHandleVarargArray()
+    return invokeTest()
 }
 
 fun invokeStrLenSafe() {
@@ -136,13 +141,49 @@ fun invokeCopyElements() {
 }
 
 fun invokeGreetArray() {
-    val array: Array<String> = arrayOf("おはようございます", "こんにちは", "こんばんは")
-    greetArray(array)
-    println(array[0])
+    // Array<T> には、Tがプリミティブ型の場合のクラス(IntArray, ByteArray)が用意されている
+    val arr: Array<String> = arrayOf<String>("おはようございます", "こんにちは", "こんばんは")
+    greetArray(arr)
+    println(arr[0])
 }
 
 fun invokeGreetMutableList() {
-    val list = mutableListOf<String>("foo", "bar")
-    greetMutableList(list)
-    println(list)
+    // MutableListとArrayListは同じと考えて良い(MutableList は裏側ではArrayListを呼び出している
+    // 使い分けとしては、基本的にはMutableListを使い、ArrayListでなければならないというときのみ、ArrayListを使う運用
+    val li = mutableListOf<String>("foo", "bar")
+    greetMutableList(li)
+    println(li)
+    println("-----------------------------------")
+    val l = arrayListOf<String>("hoge", "fuga")
+    greetArrayList(l)
+    println(l)
+}
+
+fun invokeHandleArray() {
+    val array = arrayOf("hoge", "fuga", "foo", "bar")
+    handleArray(array)
+}
+
+fun invokeHandleArrayOfNulls() {
+    val letters = Array<String>(26 ) { i -> ('a' + i).toString() }
+    println(letters.joinToString(""))
+}
+
+fun invokeArrayInit() {
+    val a = Array(5, { i -> i })
+    a.forEach {
+        println(it)
+    }
+}
+
+fun invokeHandleVarargArray() {
+    val strings = listOf<String>("a", "b", "c")
+    println("%s/%s/%s".format(*strings.toTypedArray()))
+}
+
+fun invokeTest() {
+//    val fileZeros = IntArray(5)
+//    val fiveZerosToo = intArrayOf(0, 0, 0, 0, 0)
+    val squares = IntArray(5) { (it + 1) * (it + 1) }
+    println(squares.joinToString())
 }
