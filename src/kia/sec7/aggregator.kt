@@ -1,4 +1,5 @@
 package kia.sec7
+import java.beans.PropertyChangeListener
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -21,7 +22,11 @@ fun sec7Output(): Any {
 //    return invokeOverrideRangeTo()
 //    return (0..10).forEach { println(it) }
 //    return invokeOverrideClosedRangeIterator()
-    return invokeOverrideNameComponents()
+//    return invokeOverrideNameComponents()
+//    return invokePrintEntries()
+//    return invokePersonSampleEmail()
+//    return invokePropertyChangeListener()
+    return invokeExampleDeletion()
 }
 
 fun invokePlus() {
@@ -134,4 +139,45 @@ fun invokeOverrideNameComponents() {
     val (name, extension) = splitFileName("example.kt")
     println(name)
     println(extension)
+}
+
+fun invokePrintEntries() {
+    val map: Map<String, String> = mapOf("Oracle" to "Java", "JetBrains" to "Kotlin")
+    printEntries(map)
+}
+
+fun invokePersonSampleEmail() {
+    val p = PersonSample("Alice")
+    p.emails
+
+    val ps2 = PersonSample2("Foo")
+    ps2.emails
+}
+
+fun invokePropertyChangeListener() {
+    val p = PersonHoge("Dmitry", 34, 2000)
+    p.addPropertyChangeListener(
+            PropertyChangeListener { evt ->
+                println("Property ${evt.propertyName} changed from ${evt.oldValue} to ${evt.newValue}")
+            }
+    )
+
+    p.age = 35
+    p.salary = 2100
+
+    val p2 = PersonFuga("Foo", 12, 40)
+    p2.addPropertyChangeListener(
+            PropertyChangeListener { e ->
+                println("Property ${e.propertyName} changed from ${e.oldValue} to ${e.newValue}")
+            }
+    )
+
+    p2.age = 13
+    p2.salary = 41
+}
+
+fun invokeExampleDeletion() {
+    val eg = Example()
+    println(eg.p)
+    eg.p = "Hello, I am new value"
 }

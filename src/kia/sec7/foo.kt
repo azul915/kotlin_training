@@ -1,6 +1,9 @@
 package kia.sec7
 
+import java.beans.PropertyChangeListener
+import java.beans.PropertyChangeSupport
 import java.time.LocalDate
+import kotlin.reflect.KProperty
 
 data class Point(val x: Int, val y: Int) {
     operator fun plus(other: Point): Point {
@@ -97,5 +100,135 @@ fun splitFileName(fullName: String): NameComponents {
 fun printEntries(map: Map<String, String>) {
     for ((key, value) in map) {
         println("$key -> $value")
+    }
+}
+
+interface ButtonListener {
+    fun onClicked()
+}
+
+val listener = object: ButtonListener {
+    override fun onClicked() = println("clicked!")
+}
+
+
+//button.addListener(object: ButtonListner {
+//    override fun onClicked() = println("clicked!!")
+//})
+
+//class Foo {
+//    var p: Type by Delegate()
+//}
+//
+//class Delegate {
+//    fun getValue(): String {
+//        return "value"
+//    }
+//
+//    fun setValue(value: String) {
+//        println("")
+//    }
+//}
+
+data class Email(val adress: String)
+fun loadEmails(target: PersonSample): List<Email> {
+    println("Load emails for ${target.name}")
+    return listOf(Email("${target.name}"))
+}
+
+class PersonSample(val name: String) {
+    private var _emails: List<Email>? = null
+
+    val emails: List<Email>
+        get() {
+            if (_emails == null) {
+                _emails = loadEmails(this)
+            }
+            return _emails!!
+        }
+}
+
+data class SampleEmail(val address: String)
+fun loadSampleEmails(ps2: PersonSample2): List<SampleEmail> {
+    println("Load emails for ${ps2.name}")
+    return listOf(SampleEmail("${ps2.name}"))
+}
+
+class PersonSample2(val name: String) {
+    val emails by lazy { loadSampleEmails(this) }
+}
+
+open class PropertyChangeAware {
+    protected val changeSupport = PropertyChangeSupport(this)
+
+    fun addPropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.addPropertyChangeListener(listener)
+    }
+
+    fun removePropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.removePropertyChangeListener(listener)
+    }
+}
+
+class PersonHoge(val name: String, age: Int, salary: Int) : PropertyChangeAware() {
+
+    var age: Int = age
+        set(newValue) {
+            val oldValue = field
+            field = newValue
+            changeSupport.firePropertyChange("age", oldValue, newValue)
+        }
+
+    var salary: Int = salary
+        set(newValue) {
+            val oldValue = field
+            field = newValue
+            changeSupport.firePropertyChange("salary", oldValue, newValue)
+        }
+}
+
+class ObservableProperty(
+        val propName: String, var propValue: Int, val changeSupport: PropertyChangeSupport
+) {
+    fun getValue(): Int = propValue
+    fun setValue(newValue: Int) {
+        val oldValue = propValue
+        propValue = newValue
+        changeSupport.firePropertyChange(propName, oldValue, newValue)
+    }
+}
+
+class PersonFuga(val name: String, age: Int, salary: Int): PropertyChangeAware() {
+    val _age = ObservableProperty("age", age, changeSupport)
+    var age: Int
+        get() = _age.getValue()
+        set(value) { _age.setValue(value) }
+
+    val _salary = ObservableProperty("salary", salary, changeSupport)
+    var salary: Int
+        get() = _salary.getValue()
+        set(value) { _salary.setValue(value) }
+}
+
+class ObservablePropertySample(var propValue: Int, val changeSupport: PropertyChangeSupport) {
+    operator fun getValue(p: PersonFuga, prop: KProperty<*>): Int = propValue
+    operator fun setValue(p: PersonFuga, prop: KProperty<*>, newValue: Int) {
+        val oldValue = propValue
+        propValue = newValue
+        changeSupport.firePropertyChange(prop.name, oldValue, newValue)
+    }
+}
+
+class Example {
+    var p: String by ExampleDelegate()
+}
+
+class ExampleDelegate {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): String {
+        return "$thisRef, delegate ${property.name}"
+    }
+
+    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
+        println("$thisRef delegate ${property.name}, value is $value")
     }
 }
