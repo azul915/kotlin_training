@@ -1,5 +1,8 @@
 package kia.sec8
 
+import java.util.concurrent.locks.Lock
+import java.util.concurrent.locks.ReentrantLock
+
 fun sec8Output(): Any {
 //    val sum = { x: Int, y: Int -> x + y }
 //    val action = { println(42) }
@@ -24,7 +27,8 @@ fun sec8Output(): Any {
 //        println(this)
 //    }
 //    return invokeContractListFilters()
-    return invokeStdOutLog()
+//    return invokeStdOutLog()
+    return invokeReentrantLock()
 }
 
 fun invokeTwoAndThree() {
@@ -83,3 +87,11 @@ fun invokeStdOutLog() {
 
 }
 
+fun invokeReentrantLock() {
+    val obj: Lock = ReentrantLock()
+    println("Before sync")
+    synchronized(obj) {
+        println("Action")
+    }
+    println("After sync")
+}

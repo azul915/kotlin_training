@@ -1,5 +1,6 @@
 package kia.sec8
 
+import java.util.concurrent.locks.Lock
 
 
 fun twoAndThree(operation: (Int, Int) -> Int) {
@@ -79,3 +80,39 @@ enum class OS { WINDOWS, LINUX, MAC, IOS, ANDROID }
 fun List<SiteVisit>.averageDurationFor(os: OS) = filter { it.os == os }.map(SiteVisit::duration).average()
 
 fun List<SiteVisit>.averageDurationFor(predicate: (SiteVisit) -> Boolean) = filter(predicate).map(SiteVisit::duration).average()
+
+inline fun <T> synchronized(lock: Lock, action: () -> T): T {
+    lock.lock()
+    try {
+        return action()
+    }
+    finally {
+        lock.unlock()
+    }
+}
+
+fun foo(l: Lock) {
+    println("Before sync")
+    synchronized(l) {
+        println("Action")
+    }
+    println("After sync")
+
+    val lo = LockOwner(l)
+    val act = { println("act") }
+    lo.run { act }
+}
+
+class LockOwner(val lock: Lock) {
+    fun runUnderLock(body: () -> Unit) {
+        synchronized(lock, body)
+    }
+}
+//
+//fun <T, R> Sequence<T>.map(transform: (T) -> R): Sequence<R> {
+//    return TransformingSequence(this, transform)
+//}
+
+inline fun foo(inlined: () -> Unit, noinline notlInlined: () -> Unit) {
+
+}
